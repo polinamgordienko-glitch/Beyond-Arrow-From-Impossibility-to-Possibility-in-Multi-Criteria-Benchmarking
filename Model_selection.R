@@ -7,7 +7,7 @@ library(dplyr)
 library(tidyr)
 library(tibble)
 
-out <- file.path("results", "revision")
+out <- file.path("results", "helm_mmlu")
 dir.create(out, recursive = TRUE, showWarnings = FALSE)
 
 if (!exists("long_pmlb")) {
