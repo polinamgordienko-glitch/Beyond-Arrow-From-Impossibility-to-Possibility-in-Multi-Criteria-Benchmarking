@@ -4,7 +4,7 @@ library(purrr)
 library(tibble)
 
 fp_pmlb   <- file.path("pmlb_results", "final_results.RDS")
-fp_openml <- file.path("openml_permutation_results", "dat_openml_filter.rds")
+fp_openml <- file.path("openml_permutation_results", "data_openml_filter.rds")
 
 pmlb <- readRDS(fp_pmlb)
 openml <- readRDS(fp_openml)
