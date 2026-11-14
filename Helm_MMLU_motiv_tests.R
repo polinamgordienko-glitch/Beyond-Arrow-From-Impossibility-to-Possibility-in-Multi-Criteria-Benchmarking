@@ -487,5 +487,5 @@ if (!is.null(w)) {
   L <- lbs(w)
   print(L$before, n = Inf)
   print(L$after,  n = Inf)
-  print(L$focus,  n = Inf)
+  print(L$focus)
 }
