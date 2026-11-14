@@ -124,9 +124,8 @@ Rscript PMLB_OpenML_tests.R
 Rscript Helm_MMLU_motiv_tests.R
 ```
 
-The HELM results are saved in `results/helm_mmlu/`.
-The additional experiments and model-selection results are saved in
-`results/revision/`.
+Results from `HELM_MMLU.R` and `Model_selection.R` are saved in
+`results/helm_mmlu/`.
 
 ## References:
 
