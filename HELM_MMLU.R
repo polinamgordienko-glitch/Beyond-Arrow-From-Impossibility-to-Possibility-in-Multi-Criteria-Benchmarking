@@ -640,9 +640,9 @@ print(sweep_tbl[, c("A_set", "metric_set", "tie",
                     "sp_count", "sp_lo", "sp_hi",
                     "gs_count", "gs_lo", "gs_hi",
                     "dr_count", "dr_lo", "dr_hi")])
-saveRDS(sweep_tbl, "sweep_tbl.rds")
 results_dir <- file.path("results", "helm_mmlu")
 dir.create(results_dir, recursive = TRUE, showWarnings = FALSE)
+saveRDS(sweep_tbl, file.path(results_dir, "sweep_tbl.rds"))
 axis_pos <- function(k) {
   a <- matrix(1L, nrow = 1L)
   for (i in 2:k) a <- rbind(cbind(i, a), cbind(a, i))
@@ -833,7 +833,8 @@ write.csv(baseline_results, file.path(results_dir, "helm_mmlu_baseline_results.c
 write.csv(sweep_tbl[sweep_tbl$tie == "alph", ],
           file.path(results_dir, "helm_metric_sizes_3_6_alph_combined.csv"),
           row.names = FALSE)
-write.csv(sweep_tbl, "sweep_tbl.csv", row.names = FALSE)
+write.csv(sweep_tbl, file.path(results_dir, "sweep_tbl.csv"),
+          row.names = FALSE)
 
 
 ### Tables for regression models
@@ -1221,7 +1222,7 @@ stopifnot(all(vapply(
   exists, logical(1)
 )))
 
-out <- file.path("results", "revision")
+out <- file.path("results", "helm_mmlu")
 dir.create(out, recursive = TRUE, showWarnings = FALSE)
 n_tie <- 10L
 n_null <- 1000000L
