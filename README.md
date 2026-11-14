@@ -25,7 +25,8 @@ does not.*
 
 ## Requirements
 
-The analysis uses R and the packages listed below:
+The analysis uses R and the packages listed below. For aggregation across datasets, we use the R package
+[ddandrda](https://github.com/hannahblo/ddandrda).
 
 ```r
 install.packages(
@@ -37,52 +38,23 @@ install.packages(
 
 BiocManager::install("Rgraphviz", ask = FALSE, update = FALSE)
 
+remotes::install_github(
+  "hannahblo/ddandrda@2c7699f90a5f4cc68a164c1186d8376eff5b2b90",
+  upgrade = "never"
+)
 ```
+The code was tested with R versions 4.4.1, 4.4.2 and 4.5.2 on
+macOS Sequoia 15.7.3 and Windows 11.
 
-## Reproducing the results
+## Data
 
-After preparing the data, run the following commands from the repository
-folder in the same R session:
-
-```r
-source("HELM_MMLU.R")
-source("Model_selection.R")
-```
-
-`Model_selection.R` uses objects created by `HELM_MMLU.R` and must be run
-after it. If these objects are already loaded, only the second command
-is needed.
-
-The PMLB/OpenML structural tests and the motivation experiments can be
-run independently:
-
-```bash
-Rscript PMLB_OpenML_tests.R
-Rscript Helm_MMLU_motiv_tests.R
-```
-
-The HELM results are saved in `results/helm_mmlu/`.
-The additional experiments and model-selection results are saved in
-`results/revision/`.
-
-## HELM MMLU  
+### HELM MMLU  
 The script "HELM_MMLU.R" reads HELM run folders, builds rankings for each MMLU subject, and then tests for:
 
 - **Single-peakedness**,
 - **Group separability**,
 - **Distance-restrictedness**,
 - and additionally provides the ranking representing the whole benchmark suite by **aggregating across datasets**.
-
-The code was tested with
-
-- R version 4.4.1
-- R version 4.4.2
-- R version 4.5.2
-
-on
-
-- macOS Sequoia 15.7.3
-- Windows 11
 
 You need access to the HELM MMLU raw run folders (v1.0.0). There are two ways to obtain them:
 
@@ -114,7 +86,7 @@ Place the HELM MMLU results in the following location:
 metric values. The paired bootstrap additionally requires
 `instances.json` and `per_instance_stats.json` for the selected runs.
 
-## PMLB and OpenML
+### PMLB and OpenML
 
 We use the final results from Jansen et al. (2024), available in the
 [Statistical Multicriteria Benchmarking repository](https://github.com/hannahblo/Statistical-Multicriteria-Benchmarking-via-the-GSD-Front).
@@ -130,9 +102,31 @@ openml_permutation_results/
   data_openml_filter.rds
 ``` 
 
-## Transitivity and Stability Experiments
+## Reproducing the results
 
-The script "Helm_MMLU_motiv_tests.R" runs the experiments from Section 3 of our paper, based on HELM MMLU (v1.0.0). It contains code for the search for Condorcet cycles and includes our investigation for situations benchmarks become unstable to irrelevant changes in the model set.
+After preparing the data, run the following commands from the repository
+folder in the same R session:
+
+```r
+source("HELM_MMLU.R")
+source("Model_selection.R")
+```
+
+`Model_selection.R` uses objects created by `HELM_MMLU.R` and must be run
+after it. If these objects are already loaded, only the second command
+is needed.
+
+The PMLB/OpenML structural tests and the motivation experiments can be
+run independently:
+
+```bash
+Rscript PMLB_OpenML_tests.R
+Rscript Helm_MMLU_motiv_tests.R
+```
+
+The HELM results are saved in `results/helm_mmlu/`.
+The additional experiments and model-selection results are saved in
+`results/revision/`.
 
 ## References:
 
