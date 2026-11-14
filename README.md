@@ -37,10 +37,6 @@ install.packages(
 
 BiocManager::install("Rgraphviz", ask = FALSE, update = FALSE)
 
-remotes::install_github(
-  "hannahblo/ddandrda@2c7699f90a5f4cc68a164c1186d8376eff5b2b90",
-  upgrade = "never"
-)
 ```
 
 ## Reproducing the results
